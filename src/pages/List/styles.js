@@ -3,11 +3,11 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left: var(--nav-size);  
+  margin-left: var(--nav-size);
   
   table {
-    margin-top: 64px;
     padding-top: 16px;
+    padding-right: 16px;
     border-spacing: 0px;
     background: var(--background);
   }
@@ -36,7 +36,7 @@ export const Container = styled.div`
 export const ImageContainer = styled.div`
   display:flex;
   flex-direction: column;
-  height: 100px;
+  height: 200px;
 
   span {
     color: white;
@@ -50,13 +50,15 @@ export const ImageContainer = styled.div`
   }
 
   // Fixed-position background image
-  &::before {
+  :before {
     content: ' ';
-    width: 100%;
-    height: 300px;
-    background: linear-gradient(to bottom, #0000, #000a), url(${props => props.src}) center center;
+    background: linear-gradient(to bottom, #0000, #000a), url(${props => props.src}) no-repeat;
+    width: calc(100% - var(--nav-size));
+    height: 200px;
+    background-position: center 45%;
     background-size: cover;
-    position: fixed; // instead of background-attachment
+    
+    position: fixed;
     z-index: -1;
   }
 `
