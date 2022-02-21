@@ -19,9 +19,14 @@ export const Tr = styled.tr`
     padding-right: 16px;
     padding-left: 16px;
     font-weight: 300;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
   }
 
   .last {
     padding-right: 32px;
+    padding-left: 0px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
   }
 `

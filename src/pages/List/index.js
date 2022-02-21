@@ -49,13 +49,18 @@ function List() {
 
   return (
     <div>
-    {/*wait until we have data */}
+    {/*render only if we have data */}
     {assetList.length != 0 &&
     <Container>
       <ImageContainer src={banner}>
         <span>{title}</span>
       </ImageContainer>
       <table>
+        {/* attach first column to the second */}
+        <colgroup>
+          <col span="1" style={{width: '32px'}}/>
+        </colgroup>
+
         <thead>
           <tr>
             <th id='id'>#</th>

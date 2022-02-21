@@ -7,7 +7,8 @@ export const Container = styled.div`
   
   table {
     padding-top: 16px;
-    padding-right: 16px;
+    padding-left: 32px;
+    padding-right: 32px;
     border-spacing: 0px;
     background: var(--background);
   }
