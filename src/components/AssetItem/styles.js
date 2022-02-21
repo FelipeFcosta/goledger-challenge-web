@@ -6,7 +6,7 @@ export const Tr = styled.tr`
   color: #222;
 
   :hover {
-    background: #EEEFEFCC;
+    background: #00000020;
   }
   
   td {
@@ -22,6 +22,6 @@ export const Tr = styled.tr`
   }
 
   .last {
-    padding-right: 16px;
+    padding-right: 32px;
   }
 `

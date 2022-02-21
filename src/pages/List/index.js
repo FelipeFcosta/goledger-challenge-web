@@ -1,18 +1,27 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import api from '../../services/api';
-import { Container, Ul } from './styles';
+import { Container, ImageContainer, Ul } from './styles';
 import AssetItem from '../../components/AssetItem';
+
+import artist_banner from '../../resources/images/artist_banner.jpg'
+import album_banner from '../../resources/images/album_banner.jpg'
+import streaming_banner from '../../resources/images/streaming_banner.jpg'
 
 function List() {
   let params = useParams();
   let assetLabel = params.assetLabel.toLowerCase()
+  
   let navigate = useNavigate()
-
   // check if url parameter is valid, otherside go to home page
   if (!["artist", "album", "streaming"].includes(assetLabel)) {
     navigate('/')
   }
+  
+  let banner
+  if (assetLabel == 'artist')     banner = artist_banner
+  else if (assetLabel == 'album') banner = album_banner
+  else                            banner = streaming_banner
 
   const [assetList, setAssetList] = useState([])
   
@@ -36,15 +45,16 @@ function List() {
     getAssetList()
   }, []) // only execute at load time
 
-
-  // wait until we have data
-  if (assetList.length == 0) {
-    console.log('not ready')
-    return <div />
-  }
+  let title = assetLabel === 'streaming' ? `${assetLabel} services` : `${assetLabel}s`
 
   return (
+    <div>
+    {/*wait until we have data */}
+    {assetList.length != 0 &&
     <Container>
+      <ImageContainer src={banner}>
+        <span>{title}</span>
+      </ImageContainer>
       <table>
         <thead>
           <tr>
@@ -68,6 +78,8 @@ function List() {
         </tbody>
       </table>
     </Container>
+    }
+    </div>
   );
 }
 
