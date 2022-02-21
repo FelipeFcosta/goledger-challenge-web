@@ -5,7 +5,7 @@ export const ImageContainer = styled.div`
   flex-direction: column;
   
   background-image: linear-gradient(to bottom, #0000, #000), url(${props => props.src});
-  box-shadow: 10px 10px 5px #ccc;
+  box-shadow: 10px 10px 5px #0005;
   border-radius: 8px;
   width:300px;
   height:400px;
@@ -19,14 +19,13 @@ export const ImageContainer = styled.div`
     font-weight: bold;
     font-size: 2em;
     margin: 16px;
+    user-select: none;
   }
   
   cursor: pointer;
-  transition: 0.2s;
   
   :hover {
-    transform: scale(1.05);
-    transition-delay: 0.1s;
-    box-shadow: 10px 10px 10px #ccc;
+    background-image: linear-gradient(to bottom, #fff1, #fff1), url(${props => props.src});
+    box-shadow: 10px 10px 10px #0005;
   }
 `
