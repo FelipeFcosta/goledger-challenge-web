@@ -7,18 +7,19 @@ import streaming_img from '../../resources/images/streaming.jpg'
 import { Container } from './styles';
 
 function Home() {
-  var artist = {
+  let artist = {
     label: 'Artist',
     banner: artist_img
   }
-  var album = {
+  let album = {
     label: 'Album',
     banner: album_img
   }
-  var streaming = {
+  let streaming = {
     label: 'Streaming',
     banner: streaming_img
   }
+
 
   return (
       <div>
