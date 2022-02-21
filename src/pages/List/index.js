@@ -58,7 +58,7 @@ function List() {
       <table>
         {/* attach first column to the second */}
         <colgroup>
-          <col span="1" style={{width: '32px'}}/>
+          <col span="1" style={{width: '0'}}/>
         </colgroup>
 
         <thead>

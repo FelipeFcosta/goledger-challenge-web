@@ -37,6 +37,7 @@ export const Container = styled.div`
 export const ImageContainer = styled.div`
   display:flex;
   flex-direction: column;
+  justify-content: flex-end;
   height: 200px;
 
   span {
