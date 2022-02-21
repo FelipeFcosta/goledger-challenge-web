@@ -20,6 +20,7 @@ export const ImageContainer = styled.div`
     font-size: 2em;
     margin: 16px;
     user-select: none;
+    font-family: 'Montserrat';
   }
   
   cursor: pointer;

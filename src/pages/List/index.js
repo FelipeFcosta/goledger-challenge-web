@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import api from '../../services/api';
+import { Container, Ul } from './styles';
+import AssetItem from '../../components/AssetItem';
 
 function List() {
   let params = useParams();
@@ -36,11 +38,34 @@ function List() {
 
 
   return (
-    <ul>
-      {assetList.map((asset) =>
-        <li>{asset.name}</li>
-      )}
-    </ul>
+    <Container>
+      <table>
+        {assetLabel == 'artist' && 
+          <tr>
+            <th id='id'>#</th>
+            <th>Name</th>
+            <th>Location</th>
+          </tr>
+        }
+        {assetLabel == 'album' && 
+          <tr> 
+            <th id='id'>#</th>
+            <th>Name</th>
+            <th>Year</th>
+            <th>Artist</th>
+          </tr>
+        }
+        {assetLabel == 'streaming' && 
+          <tr> 
+            <th id='id'>#</th>
+            <th>Name</th>
+          </tr> 
+        }
+        {assetList.map((assetItem, id) =>
+          <AssetItem id={id} item={assetItem}/>
+        )}
+      </table>
+    </Container>
   );
 }
 
