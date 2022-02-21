@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const Nav = styled.nav`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -15,5 +15,5 @@ export const Container = styled.div`
 
 export const Logo = styled.img`
   padding-top: 32px;
-  width: calc(var(--nav-size) - 32px);
+  width: calc(var(--nav-size) - 40px);
 `
