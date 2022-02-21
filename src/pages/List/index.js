@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import api from '../../services/api';
 import { Container, Ul } from './styles';
@@ -18,52 +18,54 @@ function List() {
   
   // list all artists/albums/streamings
   useEffect(() => {
-      async function getAssetList(){
-        await api.post(`/query/search`, {
-          "query": {
-            "selector": {
-              "@assetType": `${assetLabel}`
-            }
+    function getAssetList(){
+      api.post(`/query/search`, {
+        "query": {
+          "selector": {
+            "@assetType": `${assetLabel}`
           }
-        })
-        .then((resp)=>{
-          setAssetList(previous => resp.data['result'])
-        })
-        .catch((err)=>{
-            console.log("erro: " + err)
-        })
+        }
+      })
+      .then((resp)=>{
+        setAssetList(previous => resp.data['result'])
+      })
+      .catch((err)=>{
+          console.log("erro: " + err)
+      })
     }
     getAssetList()
   }, []) // only execute at load time
 
 
+  // wait until we have data
+  if (assetList.length == 0) {
+    console.log('not ready')
+    return <div />
+  }
+
   return (
     <Container>
       <table>
-        {assetLabel == 'artist' && 
+        <thead>
           <tr>
             <th id='id'>#</th>
             <th>Name</th>
-            <th>Location</th>
-          </tr>
-        }
-        {assetLabel == 'album' && 
-          <tr> 
-            <th id='id'>#</th>
-            <th>Name</th>
-            <th>Year</th>
-            <th>Artist</th>
-          </tr>
-        }
-        {assetLabel == 'streaming' && 
-          <tr> 
-            <th id='id'>#</th>
-            <th>Name</th>
+            {assetLabel == 'artist' && 
+              <th>Location</th>
+            }
+            {assetLabel == 'album' && 
+              <Fragment>
+                <th>Year</th>
+                <th>Artist</th>
+              </Fragment>
+            }
           </tr> 
-        }
-        {assetList.map((assetItem, id) =>
-          <AssetItem id={id} item={assetItem}/>
-        )}
+        </thead>
+        <tbody>
+          {assetList.map((assetItem, id) =>
+            <AssetItem id={id} item={assetItem}/>
+          )}
+        </tbody>
       </table>
     </Container>
   );

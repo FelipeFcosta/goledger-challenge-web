@@ -26,7 +26,7 @@ export const ImageContainer = styled.div`
   cursor: pointer;
   
   :hover {
-    background-image: linear-gradient(to bottom, #fff1, #fff1), url(${props => props.src});
+    background-image: url(${props => props.src});
     box-shadow: 10px 10px 10px #0005;
   }
 `

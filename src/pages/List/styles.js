@@ -9,7 +9,6 @@ export const Container = styled.div`
 
   table {
     border-spacing: 0px;
-    width: 900px;
   }
 
   th {
@@ -21,17 +20,11 @@ export const Container = styled.div`
 
     padding-bottom: 16px;
     border-bottom: 1px solid #ccc;
-
-    td {
-      padding: 16px 16px;
-    }
   }
 
   th#id {
-    padding-left: 8px;
+    padding-left: 16px;
   }
-
-  
 `
 
 export const Ul = styled.ul`
