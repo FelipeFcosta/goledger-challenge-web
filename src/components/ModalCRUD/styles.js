@@ -50,3 +50,48 @@ export const DetailsContainer = styled.div`
 
 `
 
+export const DeleteContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  margin-bottom: 72px;
+
+  font-family: 'Montserrat';
+
+  span {
+    font-weight: 500;
+  }
+
+  #options {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+
+    button {
+      cursor: pointer;
+      border: none;
+      font-size: 1em;
+    }
+
+    #cancel {
+      background: transparent;
+    }
+
+    #delete {
+      background: #f22;
+      color: white;
+      font-weight: 500;
+      padding: 12px;
+      border-radius: 12px;
+
+      :hover {
+        background: #e10;
+      }
+    }
+  }
+`
+

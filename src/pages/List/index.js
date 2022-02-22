@@ -9,7 +9,7 @@ import AssetItem from '../../components/AssetItem';
 import artist_banner from '../../resources/images/artist_banner.jpg'
 import album_banner from '../../resources/images/album_banner.jpg'
 import streaming_banner from '../../resources/images/streaming_banner.jpg'
-import { DetailsModal } from '../../components/ModalCRUD';
+import { DetailsModal, DeleteModal } from '../../components/ModalCRUD';
 
 const customStyles = {
   content: {
@@ -56,7 +56,7 @@ function List() {
         }
       })
       .then((resp)=>{
-        setAssetList(previous => resp.data['result'])
+        setAssetList(resp.data['result'])
       })
       .catch((err)=>{
           console.log("erro: " + err)
@@ -65,15 +65,18 @@ function List() {
     getAssetList()
   }, [assetLabel]) // re-render if assetLabel changes
 
+  // modal configuration
   const [selectedItem, setSelectedItem] = React.useState({});
+  const [selectedOption, setSelectedOption] = React.useState('');
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
-  function setModal(item) {
+  function setModal(event, item) {
     setSelectedItem(item)
+    setSelectedOption(event.target.getAttribute('id'));
     setIsOpen(true);
   }
-  
   let closeModal = () => setIsOpen(false);
+
 
   let title = assetLabel === 'streaming' ? `${assetLabel} services` : `${assetLabel}s`
 
@@ -119,7 +122,8 @@ function List() {
         contentLabel="Example Modal"
       >
         <div>
-          <DetailsModal item={selectedItem}/>
+          {selectedOption == 'details' && <DetailsModal item={selectedItem}/>}
+          {selectedOption == 'delete' && <DeleteModal item={selectedItem}/>}
         </div>
 
       </Modal>
