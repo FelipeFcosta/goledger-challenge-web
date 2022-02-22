@@ -59,7 +59,7 @@ function AssetItem({item, index}) {
       </Fragment>
       }
       <td id='dropdown'>
-        <span onClick={() => setOpenMenu(!openMenu)} style={{userSelect: 'none'}} className='drop-menu'>
+        <span onClick={() => setOpenMenu(!openMenu)} style={{userSelect: 'none'}}>
           &bull; &bull; &bull;
         </span>
         {openMenu && <DropdownMenu/>}
