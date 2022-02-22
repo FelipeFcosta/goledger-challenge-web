@@ -28,9 +28,7 @@ export const Tr = styled.tr`
     padding-left: 0px;
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
-
     span {
-      background:red;
       cursor: pointer;
     }
   }

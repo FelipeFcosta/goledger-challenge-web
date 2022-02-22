@@ -1,12 +1,14 @@
 import React, { Fragment, useState } from "react";
 import { useEffect } from "react";
 import api from "../../services/api";
+import DropdownMenu from "../DropdownMenu";
 import { Tr } from "./styles";
 
 
 function AssetItem({item, index}) {
   // artist for the album attribute
   const [albumArtist, setAlbumArtist] = useState([]);
+  const [openMenu, setOpenMenu] = useState(false);
 
   let assetType = item['@assetType'];
 
@@ -31,6 +33,17 @@ function AssetItem({item, index}) {
     }
   }, [assetType])
 
+  // click listener to collapse the drop-down menu
+  useEffect(() => {
+    function closeMenu(e) {
+      setOpenMenu(false)
+      document.removeEventListener('click', closeMenu)
+    }
+
+    if (openMenu) document.addEventListener('click', closeMenu)
+
+  }, [openMenu])
+
   // list all artists/albums/streamings
   return (
     <Tr>
@@ -45,7 +58,12 @@ function AssetItem({item, index}) {
           <td className='last'><a href='/'>{albumArtist.name}</a></td>
       </Fragment>
       }
-      <td id='dropdown'><span>&bull; &bull; &bull;</span></td>
+      <td id='dropdown'>
+        <span onClick={() => setOpenMenu(!openMenu)} style={{userSelect: 'none'}} className='drop-menu'>
+          &bull; &bull; &bull;
+        </span>
+        {openMenu && <DropdownMenu/>}
+      </td>
     </Tr>
   )
 }
