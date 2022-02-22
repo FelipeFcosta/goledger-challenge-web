@@ -55,6 +55,7 @@ export const ImageContainer = styled.div`
     user-select: none;
     font-family: 'Montserrat';
     text-transform: capitalize;
+    position: fixed;
   }
 
   // Fixed-position background image
