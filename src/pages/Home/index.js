@@ -6,6 +6,7 @@ import album_img from '../../resources/images/album.jpg'
 import streaming_img from '../../resources/images/streaming.jpg'
 import { Container } from './styles';
 
+
 function Home() {
   let artist = {label: 'Artist', banner: artist_img}
   let album = {label: 'Album', banner: album_img}

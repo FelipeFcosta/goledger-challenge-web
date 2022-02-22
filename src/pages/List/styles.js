@@ -12,6 +12,7 @@ export const Container = styled.div`
     border-spacing: 0px;
     background: var(--background);
     white-space: nowrap;
+    z-index: 2;
   }
 
   th {

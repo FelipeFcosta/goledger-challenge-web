@@ -10,10 +10,10 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route exact path='/list/:assetLabel' element={
-        <div>
-          <Navbar/>
-          <List/>
-        </div>
+          <div>
+            <Navbar/>
+            <List/>
+          </div>
         }>
         </Route>
         <Route exact path='/' element={<Home/>}/>

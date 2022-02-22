@@ -2,11 +2,11 @@ import React from 'react';
 import { Container, DropMenu } from './styles';
 
 
-function DropdownMenu() {
+function DropdownMenu({item, onOptionClick}) {
   return (
     <Container>
       <DropMenu>
-        <div>Details</div>
+        <div onClick={() => onOptionClick(item)}>Details</div>
         <div>Edit</div>
         <div style={{color: 'red'}}>Delete</div>
       </DropMenu>
