@@ -19,7 +19,7 @@ function AssetItem({item, index, onMenuClick}) {
         setAlbumArtist(resp.data)
       })
       .catch((err)=>{
-          console.log("erro: " + err)
+        console.log("erro: " + err)
       })
     }
   }, [assetType])

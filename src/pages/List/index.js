@@ -16,9 +16,13 @@ const customStyles = {
     top: '50%', left: '50%', right: 'auto', bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
+    minWidth: '400px',
+    borderRadius: '8px'
   },
   overlay: {
-    zIndex: 4
+    zIndex: 4,
+    background: "#0009",
+    backdropFilter: 'blur(2px)'
   }
 };
 
@@ -115,7 +119,6 @@ function List() {
         contentLabel="Example Modal"
       >
         <div>
-          {console.log('selected:', selectedItem)}
           <DetailsModal item={selectedItem}/>
         </div>
 

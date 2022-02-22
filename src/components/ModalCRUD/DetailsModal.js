@@ -1,14 +1,59 @@
-function DetailsModal({closeModal, item}) {
+import { useEffect, useState } from "react";
+import { getArtistByKey } from "../../services/api";
+import { DetailsContainer } from "./styles";
+
+
+// returns a jsx containing a label and an attribute
+function showAssetAtr(label, attribute) {
+  return (<>
+    {attribute && <>
+      <div className='label'>{label}</div>
+      <div className='attr'>{attribute}</div>
+    </>}
+  </>
+  )
+}
+
+
+function DetailsModal({item}) {
+  const [albumArtist, setAlbumArtist] = useState([]);
+
+  // request for an artist based on a key
+  useEffect(() => {
+    if (item['@assetType'] === 'album') {
+      getArtistByKey(item.artist['@key']).then((resp) => {
+        setAlbumArtist(resp.data)
+      })
+      .catch((err)=>{
+        console.log("erro: " + err)
+      })
+    }
+  }, [item['@assetType']])
 
   return (
-    <div>
-      <div id='title'>{item.name}</div>
-      {item.location && <div id='location'>{item.location}</div>}
-      {item.year && <div id='location'>{item.year}</div>}
-      {item.artist.name && <div id='artist'>{item.artist.name}</div>}
-      <div id='description'>{item.description}</div>
-      <button onClick={closeModal}></button>
-    </div>
+    <DetailsContainer>
+      {showAssetAtr('Name', item.name)}
+      {showAssetAtr('Location', item.location)}
+
+      {item.description && <>
+        <div className='label'>Description</div>
+        <div className='attr' id='description'>{item.description}</div>
+      </>}
+
+      {showAssetAtr('Year', item.year)}
+      {showAssetAtr('Artist', albumArtist.name)}
+      {showAssetAtr('Genre', item.genre)}
+
+      {item.explicit &&
+        <div className='attr' id='explicit'>[Explicit]</div>
+      }
+
+      {/* {showAssetAtr('Streaming Options', item.strOptions['@key'])} */}
+
+      <div className='label' style={{marginTop: '16px'}}>Key</div>
+      <div className='attr' id='key'>{item['@key']}</div>
+
+    </DetailsContainer>
   )
 }
 
