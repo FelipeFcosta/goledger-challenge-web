@@ -43,7 +43,7 @@ function List() {
       })
     }
     getAssetList()
-  }, []) // only execute at load time
+  }, [assetLabel]) // re-render if assetLabel changes
 
   let title = assetLabel === 'streaming' ? `${assetLabel} services` : `${assetLabel}s`
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import api from "../../services/api";
-import { Li, Tr } from "./styles";
+import { Tr } from "./styles";
 
 
 function AssetItem({item, id}) {
