@@ -49,9 +49,7 @@ function AssetItem({item, index}) {
     <Tr>
       <td id='id'><span>{index+1}</span></td>
       <td>{item.name}</td>
-      {assetType === 'artist' &&
-        <td id='last'>{item.location}</td>
-      }
+      {assetType === 'artist' && <td id='last'>{item.location}</td>}
       {assetType === 'album' && <Fragment>
           <td>{item.year}</td>
           {/* TODO: link goes opens a modal for the artist*/}
