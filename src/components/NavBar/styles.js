@@ -11,6 +11,10 @@ export const Nav = styled.nav`
   position: fixed;
   box-shadow: 0 0 10px #000;
   z-index: 1;
+
+  .nav-logo {
+    margin-bottom: 32px;
+  }
   
   .nav-link {
     text-align: center;

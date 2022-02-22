@@ -32,6 +32,11 @@ export const Container = styled.div`
   th#id {
     padding-left: 16px;
   }
+
+  th#dropdown {
+    padding: 0;
+    width: 50px;
+  }
 `
 
 export const ImageContainer = styled.div`

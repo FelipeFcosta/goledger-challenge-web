@@ -23,10 +23,15 @@ export const Tr = styled.tr`
     border-bottom-left-radius: 8px;
   }
 
-  .last {
-    padding-right: 32px;
+  #dropdown {
+    padding-right: 0px;
     padding-left: 0px;
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
+
+    span {
+      background:red;
+      cursor: pointer;
+    }
   }
 `

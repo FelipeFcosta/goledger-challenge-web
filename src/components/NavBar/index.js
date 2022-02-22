@@ -16,14 +16,14 @@ function Navbar() {
 
   return (
     <Nav>
-      <Link to='/'><Logo src={logo}/></Link>
-      <NavLink exact to='/list/artist' className='nav-link' style={({ isActive }) => isActive ? activeStyle : undefined}>
+      <Link to='/' className='nav-logo'><Logo src={logo}/></Link>
+      <NavLink to='/list/artist' className='nav-link' style={({ isActive }) => isActive ? activeStyle : undefined}>
         Artist
       </NavLink>
-      <NavLink exact to='/list/album' className='nav-link' style={({ isActive }) => isActive ? activeStyle : undefined}>
+      <NavLink to='/list/album' className='nav-link' style={({ isActive }) => isActive ? activeStyle : undefined}>
         Album
       </NavLink>
-      <NavLink exact to='/list/streaming' className='nav-link' style={({ isActive }) => isActive ? activeStyle : undefined}>
+      <NavLink to='/list/streaming' className='nav-link' style={({ isActive }) => isActive ? activeStyle : undefined}>
         Streaming Services
       </NavLink>
     </Nav>

@@ -19,8 +19,8 @@ function List() {
   }
   
   let banner
-  if (assetLabel == 'artist')     banner = artist_banner
-  else if (assetLabel == 'album') banner = album_banner
+  if (assetLabel === 'artist')     banner = artist_banner
+  else if (assetLabel === 'album') banner = album_banner
   else                            banner = streaming_banner
 
   const [assetList, setAssetList] = useState([])
@@ -50,7 +50,7 @@ function List() {
   return (
     <div>
     {/*render only if we have data */}
-    {assetList.length != 0 &&
+    {assetList.length !== 0 &&
     <Container>
       <ImageContainer src={banner}>
         <span>{title}</span>
@@ -65,26 +65,27 @@ function List() {
           <tr>
             <th id='id'>#</th>
             <th>Name</th>
-            {assetLabel == 'artist' && 
+            {assetLabel === 'artist' && 
               <th>Location</th>
             }
-            {assetLabel == 'album' && 
+            {assetLabel === 'album' && 
               <Fragment>
                 <th>Year</th>
                 <th>Artist</th>
               </Fragment>
             }
+            <th id='dropdown'></th>
           </tr> 
         </thead>
         <tbody>
-          {assetList.map((assetItem, id) =>
-            <AssetItem id={id} item={assetItem}/>
+          {assetList.map((assetItem, index) =>
+            <AssetItem index={index} item={assetItem}/>
           )}
         </tbody>
       </table>
     </Container>
-    }
-    </div>
+  }
+  </div>
   );
 }
 

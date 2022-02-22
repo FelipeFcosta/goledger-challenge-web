@@ -1,16 +1,18 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { useEffect } from "react";
 import api from "../../services/api";
 import { Tr } from "./styles";
 
 
-function AssetItem({item, id}) {
+function AssetItem({item, index}) {
   // artist for the album attribute
   const [albumArtist, setAlbumArtist] = useState([]);
 
+  let assetType = item['@assetType'];
+
   // request for an artist based on a key
   useEffect(() => {
-    if (item['@assetType'] === 'album') {
+    if (assetType === 'album') {
       function getArtist(key){
         api.post(`/query/readAsset`, {
           "key": {
@@ -27,36 +29,25 @@ function AssetItem({item, id}) {
       }
       getArtist(item.artist['@key'])
     }
-  }, [])
+  }, [assetType])
 
   // list all artists/albums/streamings
-  switch (item['@assetType']) {
-    case 'artist':
-      return (
-        <Tr>
-          <td id='id'><span>{id+1}</span></td>
-          <td>{item.name}</td>
-          <td className='last'>{item.location}</td>
-        </Tr>
-      )
-    case 'album':
-      return (
-        <Tr>
-          <td id='id'><span>{id+1}</span></td>
-          <td>{item.name}</td>
+  return (
+    <Tr>
+      <td id='id'><span>{index+1}</span></td>
+      <td>{item.name}</td>
+      {assetType === 'artist' &&
+        <td id='last'>{item.location}</td>
+      }
+      {assetType === 'album' && <Fragment>
           <td>{item.year}</td>
           {/* TODO: link goes opens a modal for the artist*/}
           <td className='last'><a href='/'>{albumArtist.name}</a></td>
-        </Tr>
-      )
-    default:
-      return (
-        <Tr>
-          <td id='id'><span>{id+1}</span></td>
-          <td className='last'>{item.name}</td>
-        </Tr>
-      )
-  }
+      </Fragment>
+      }
+      <td id='dropdown'><span>&bull; &bull; &bull;</span></td>
+    </Tr>
+  )
 }
 
 export default AssetItem;
