@@ -10,7 +10,7 @@ export const Nav = styled.nav`
   background: white;
   position: fixed;
   box-shadow: 0 0 10px #000;
-  z-index: 1;
+  z-index: 2;
 
   .nav-logo {
     margin-bottom: 32px;

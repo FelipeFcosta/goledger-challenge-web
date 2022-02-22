@@ -11,6 +11,7 @@ export const Container = styled.div`
     padding-right: 32px;
     border-spacing: 0px;
     background: var(--background);
+    white-space: nowrap;
   }
 
   th {
