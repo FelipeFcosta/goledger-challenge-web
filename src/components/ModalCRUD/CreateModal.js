@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { createAsset } from "../../services/api";
 import { EditContainer } from "./styles";
-
+import Select from 'react-select'
 
 // returns a jsx containing a label and an attribute
 function showInput(inputType, label, attr, setAttr) {
@@ -16,14 +16,18 @@ function showInput(inputType, label, attr, setAttr) {
 }
 
 
-function CreateModal({assetType, closeModal, addToAssetList}) {
+function CreateModal({artistList, assetType, closeModal, addToAssetList}) {
   const [asset, setAsset] = useState({'@assetType': assetType});
+  const [artist, setArtist] = useState({});
+
+  let options = [{value: '', label: ''}]
+  if (artistList.length > 0) {
+    options = artistList.map(artist => ({value: artist['@key'], label: artist.name}))
+  }
 
   function handleCreate() {
     closeModal()
-    
-    createAsset(asset).then((r) => {
-      // addToAssetList(item['@key'], asset)
+    createAsset(asset, artist.value).then((r) => {
     })
     .catch((err)=> {
       console.log("erro: " + err)
@@ -32,8 +36,17 @@ function CreateModal({assetType, closeModal, addToAssetList}) {
 
   return (
     <EditContainer>
+      {asset['@assetType'] === 'album' && <>
+        <label>Artist</label>
+        <div style={{marginBottom: '16px'}}>
+          <Select value={artist} onChange={(selected) => setArtist(selected)}
+          options={options} />
+        </div>
+        </>
+      }
       {showInput('text', 'Name', asset, setAsset)}
-      {asset['@assetType'] == 'artist' && <>
+
+      {asset['@assetType'] === 'artist' && <>
         {showInput('text', 'Location', asset, setAsset)}
         <div className='input-div'>
           <label htmlFor='editable'>Description</label>
@@ -41,7 +54,7 @@ function CreateModal({assetType, closeModal, addToAssetList}) {
             onChange={e => setAsset({...asset, description: e.target.value})}></textarea>
         </div>
       </>}
-      {asset['@assetType'] == 'album' && <>
+      {asset['@assetType'] === 'album' && <>
         {showInput('number', 'Year', asset, setAsset, true)}
         <div id='nTracks' className='input-div'>
           <label htmlFor="nTracks">{'Number of Tracks'}</label>
@@ -49,18 +62,14 @@ function CreateModal({assetType, closeModal, addToAssetList}) {
             onChange={e => setAsset({...asset, nTracks: e.target.value})}/>
         </div>
         {showInput('text', 'Genre', asset, setAsset)}
-        <div>
+        <div style={{marginBottom: '16px'}}>
           <input type='checkbox' id="explicit" checked={asset['explicit']} autoComplete="off"
             onChange={e => setAsset({...asset, explicit: e.target.checked ? true : false})}/>
           <label htmlFor="explicit">{'Explicit'}</label>
         </div>
       </>}
 
-    {/* {showTextInput('Artist', albumArtist.name)} */}
 
-    {/* {item.explicit &&
-      <div className='attr' id='explicit'>[Explicit]</div>
-    } */}
 
     {/* {showAssetAtr('Streaming Options', item.strOptions['@key'])} */}
       <div id='options'>

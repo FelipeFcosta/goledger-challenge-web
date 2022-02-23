@@ -46,7 +46,7 @@ export function updateAsset(item){
   })
 }
 
-export function createAsset(item){
+export function createAsset(item, artistKey=null){
   return api.post(`invoke/createAsset`, {
     "asset": [{
       "@assetType": item['@assetType'],
@@ -56,7 +56,10 @@ export function createAsset(item){
       "year": item['year'],
       "nTracks": item['nTracks'],
       "genre": item['genre'],
-      "explicit": item['explicit']
+      "explicit": item['explicit'],
+      "artist": {
+        "@key": artistKey
+      }
     }]
   })
 }

@@ -35,12 +35,12 @@ function List({modalStyle}) {
   useEffect(() => {
     function getAssetList(){
       searchByAssetType(assetLabel)
-      .then((resp)=>{
-        setAssetList(resp.data['result'])
-      })
-      .catch((err)=>{
-          console.log("erro: " + err)
-      })
+        .then((resp)=>{
+          setAssetList(resp.data['result'])
+        })
+        .catch((err)=>{
+            console.log("erro: " + err)
+        })
     }
     getAssetList()
   }, [assetLabel]) // re-render if assetLabel changes

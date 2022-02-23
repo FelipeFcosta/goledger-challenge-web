@@ -31,7 +31,11 @@ function AssetItem({item, index, setModal}) {
       setOpenMenu(false)
       document.removeEventListener('click', closeMenu)
     }
-    if (openMenu) document.addEventListener('click', closeMenu)
+    if (openMenu) {
+      console.log(openMenu)
+      document.addEventListener('click', closeMenu)
+    }
+    console.log('out', openMenu)
   }, [openMenu])
 
   

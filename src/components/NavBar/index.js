@@ -1,22 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Nav, Logo } from './styles';
 
 import logo from '../../resources/images/goledger-logo.png'
 import { Link, NavLink, useParams } from 'react-router-dom';
 import Modal from 'react-modal/lib/components/Modal';
 import { CreateModal } from '../ModalCRUD';
+import { searchByAssetType } from '../../services/api';
 
 
 Modal.setAppElement(document.getElementById('root'));
+
+let activeStyle = {
+  color: '#005588'
+}
 
 function Navbar({modalStyle}) {
   let params = useParams();
   let assetType = params.assetLabel.toLowerCase()
   let label = {'artist': 'Artist', 'album': 'Album', 'streaming': 'Streaming Service'}
 
-  let activeStyle = {
-    color: '#005588'
-  }
+  const [artistList, setArtistList] = useState({});
+  useEffect(() => {
+    if (assetType === 'album') {
+      searchByAssetType('artist')
+        .then((resp)=>{
+          setArtistList(resp.data['result'])
+        })
+        .catch((err)=>{
+          console.log("erro: " + err)
+        })
+    }
+  }, [assetType])
 
   // modal configuration
   const [modalIsOpen, setIsOpen] = React.useState(false);
@@ -45,7 +59,7 @@ function Navbar({modalStyle}) {
         style={modalStyle}
         contentLabel="CRUD Modal"
       >
-        <CreateModal assetType={assetType} closeModal={closeModal}></CreateModal>
+        <CreateModal id='modal' artistList={artistList} assetType={assetType} closeModal={closeModal}></CreateModal>
       </Modal>
     </Nav>
   )
