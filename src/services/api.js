@@ -14,7 +14,6 @@ export function getArtistByKey(key){
 }
 
 export function deleteAsset(item){
-  console.log(item['@assetType'], item['@key'])
   return api.delete('/invoke/deleteAsset', {data: {
     "key": {
       "@assetType": `${item['@assetType']}`,
@@ -29,6 +28,21 @@ export function searchByAssetType(assetType){
       "selector": {
         "@assetType": `${assetType}`
       }
+    }
+  })
+}
+
+export function updateAsset(item){
+  console.log(item['@assetType'], item['@key'])
+  return api.put(`invoke/updateAsset`, {
+    "update": {
+      "@assetType": item['@assetType'],
+      "@key": item['@key'],
+      "description": item['description'],
+      "year": item['year'],
+      "nTracks": item['nTracks'],
+      "genre": item['genre'],
+      "explicit": item['explicit']
     }
   })
 }

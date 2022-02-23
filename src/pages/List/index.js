@@ -75,6 +75,9 @@ function List() {
     setAssetList(assetList => assetList.filter(asset => asset['@key'] !== key))
   }
 
+  function updateAssetList(key) {
+  }
+
 
   let title = assetLabel === 'streaming' ? `${assetLabel} services` : `${assetLabel}s`
 
@@ -123,7 +126,8 @@ function List() {
           {selectedOption == 'details' && <DetailsModal item={selectedItem}/>}
           {selectedOption == 'delete' &&
             <DeleteModal item={selectedItem} closeModal={closeModal} removeFromAssetList={removeFromAssetList}/>}
-          {selectedOption == 'edit' && <EditModal item={selectedItem}/>}
+          {selectedOption == 'edit' &&
+            <EditModal item={selectedItem} closeModal={closeModal} updateAssetList={updateAssetList}/>}
         </div>
 
       </Modal>
