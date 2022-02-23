@@ -1,11 +1,11 @@
 import React, { Fragment, useState } from "react";
 import { useEffect } from "react";
-import api, { getArtistByKey } from "../../services/api";
+import { getArtistByKey } from "../../services/api";
 import DropdownMenu from "../DropdownMenu";
 import { Tr } from "./styles";
 
 
-function AssetItem({item, index, onMenuClick}) {
+function AssetItem({item, index, setModal}) {
   // artist for the album attribute
   const [albumArtist, setAlbumArtist] = useState([]);
   const [openMenu, setOpenMenu] = useState(false);
@@ -51,7 +51,7 @@ function AssetItem({item, index, onMenuClick}) {
         <span onClick={() => setOpenMenu(!openMenu)} style={{userSelect: 'none'}}>
           &bull; &bull; &bull;
         </span>
-        {openMenu && <DropdownMenu item={item} onOptionClick={onMenuClick}/>}
+        {openMenu && <DropdownMenu item={item} setModal={setModal}/>}
       </td>
     </Tr>
   )

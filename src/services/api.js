@@ -7,14 +7,31 @@ const api = axios.create({
 export function getArtistByKey(key){
   return api.post(`/query/readAsset`, {
     "key": {
-    "@assetType": 'artist',
-    "@key": `${key}`
+      "@assetType": 'artist',
+      "@key": `${key}`
     }
   })
 }
 
-export function addProduct(data){
-    return api.post('/product', JSON.stringify(data));
+export function deleteAsset(item){
+  console.log(item['@assetType'], item['@key'])
+  return api.delete('/invoke/deleteAsset', {data: {
+    "key": {
+      "@assetType": `${item['@assetType']}`,
+      "@key": `${item['@key']}`
+    }
+  }})
 }
+
+export function searchByAssetType(assetType){
+  return api.post(`/query/search`, {
+    "query": {
+      "selector": {
+        "@assetType": `${assetType}`
+      }
+    }
+  })
+}
+
 
 export default api

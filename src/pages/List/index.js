@@ -2,9 +2,9 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Modal from 'react-modal';
 
-import api from '../../services/api';
 import { Container, ImageContainer, Ul } from './styles';
 import AssetItem from '../../components/AssetItem';
+import { searchByAssetType } from "../../services/api";
 
 import artist_banner from '../../resources/images/artist_banner.jpg'
 import album_banner from '../../resources/images/album_banner.jpg'
@@ -48,13 +48,7 @@ function List() {
   // list all artists/albums/streamings
   useEffect(() => {
     function getAssetList(){
-      api.post(`/query/search`, {
-        "query": {
-          "selector": {
-            "@assetType": `${assetLabel}`
-          }
-        }
-      })
+      searchByAssetType(assetLabel)
       .then((resp)=>{
         setAssetList(resp.data['result'])
       })
@@ -65,6 +59,7 @@ function List() {
     getAssetList()
   }, [assetLabel]) // re-render if assetLabel changes
 
+  
   // modal configuration
   const [selectedItem, setSelectedItem] = React.useState({});
   const [selectedOption, setSelectedOption] = React.useState('');
@@ -75,7 +70,11 @@ function List() {
     setSelectedOption(event.target.getAttribute('id'));
     setIsOpen(true);
   }
-  let closeModal = () => setIsOpen(false);
+  let closeModal = () => setIsOpen(false)
+
+  function removeFromAssetList(key) {
+    setAssetList(assetList => assetList.filter(asset => asset['@key'] !== key))
+  }
 
 
   let title = assetLabel === 'streaming' ? `${assetLabel} services` : `${assetLabel}s`
@@ -110,7 +109,7 @@ function List() {
         </thead>
         <tbody>
           {assetList.map((assetItem, index) =>
-            <AssetItem index={index} item={assetItem} onMenuClick={setModal}/>
+            <AssetItem index={index} item={assetItem} setModal={setModal}/>
           )}
         </tbody>
       </table>
@@ -123,7 +122,8 @@ function List() {
       >
         <div>
           {selectedOption == 'details' && <DetailsModal item={selectedItem}/>}
-          {selectedOption == 'delete' && <DeleteModal item={selectedItem}/>}
+          {selectedOption == 'delete' &&
+            <DeleteModal item={selectedItem} closeModal={closeModal} removeFromAssetList={removeFromAssetList}/>}
         </div>
 
       </Modal>

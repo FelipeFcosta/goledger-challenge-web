@@ -41,6 +41,7 @@ function DetailsModal({item}) {
       </>}
 
       {showAssetAtr('Year', item.year)}
+      {showAssetAtr('Number of Tracks', item.nTracks)}
       {showAssetAtr('Artist', albumArtist.name)}
       {showAssetAtr('Genre', item.genre)}
 

@@ -77,11 +77,11 @@ export const DeleteContainer = styled.div`
       font-size: 1em;
     }
 
-    #cancel {
+    #cancel-btn {
       background: transparent;
     }
 
-    #delete {
+    #delete-btn {
       background: #f22;
       color: white;
       font-weight: 500;
