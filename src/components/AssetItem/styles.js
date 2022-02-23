@@ -24,7 +24,7 @@ export const Tr = styled.tr`
   }
 
   #dropdown {
-    padding-right: 0px;
+    padding-right: 16px;
     padding-left: 0px;
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
