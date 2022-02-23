@@ -121,7 +121,7 @@ export const EditContainer = styled.div`
 
   input {
     border: none;
-    border:solid 1px #ccc;
+    border:solid 1px #aaa;
     border-radius: 8px;
     padding: 0.5em;
     font-size: 1em;
@@ -137,7 +137,7 @@ export const EditContainer = styled.div`
     font-size: 0.95em;
     resize: none;
     border: none;
-    border:solid 1px #ccc;
+    border:solid 1px #aaa;
     outline: none;
     color: black;
     font-weight: 400;

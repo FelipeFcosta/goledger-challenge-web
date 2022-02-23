@@ -33,7 +33,6 @@ export function searchByAssetType(assetType){
 }
 
 export function updateAsset(item){
-  console.log(item['@assetType'], item['@key'])
   return api.put(`invoke/updateAsset`, {
     "update": {
       "@assetType": item['@assetType'],
@@ -46,6 +45,22 @@ export function updateAsset(item){
     }
   })
 }
+
+export function createAsset(item){
+  return api.post(`invoke/createAsset`, {
+    "asset": [{
+      "@assetType": item['@assetType'],
+      "name": item['name'],
+      "location": item['location'],
+      "description": item['description'],
+      "year": item['year'],
+      "nTracks": item['nTracks'],
+      "genre": item['genre'],
+      "explicit": item['explicit']
+    }]
+  })
+}
+
 
 
 export default api

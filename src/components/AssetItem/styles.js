@@ -29,7 +29,23 @@ export const Tr = styled.tr`
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
     span {
+      border-radius: 10px;
+      padding: 8px;
+      :hover {
+        background: #0001;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .last {
+    span {
+      padding: 8px 4px;
       cursor: pointer;
+      :hover {
+        border-radius: 10px;
+        background: #0001;
+      }
     }
   }
 `

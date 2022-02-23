@@ -72,3 +72,16 @@ export const ImageContainer = styled.div`
     z-index: -1;
   }
 `
+
+export const ModalStyle = styled.div`
+    top: 50%; left: 50%; right: auto; bottom: auto;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    min-width: 400px;
+    border-radius: 8px;
+`
+
+export const OverlayStyle = styled.div`
+  z-index: 4;
+  background-color: #000b;
+`

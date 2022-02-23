@@ -1,8 +1,8 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Modal from 'react-modal';
 
-import { Container, ImageContainer, Ul } from './styles';
+import { Container, ImageContainer } from './styles';
 import AssetItem from '../../components/AssetItem';
 import { searchByAssetType } from "../../services/api";
 
@@ -11,23 +11,10 @@ import album_banner from '../../resources/images/album_banner.jpg'
 import streaming_banner from '../../resources/images/streaming_banner.jpg'
 import { DetailsModal, DeleteModal, EditModal } from '../../components/ModalCRUD';
 
-const customStyles = {
-  content: {
-    top: '50%', left: '50%', right: 'auto', bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-    minWidth: '400px',
-    borderRadius: '8px'
-  },
-  overlay: {
-    zIndex: 4,
-    backgroundColor: "#000b"
-  }
-};
 
 Modal.setAppElement(document.getElementById('root'));
 
-function List() {
+function List({modalStyle}) {
 
   let assetLabel = useParams().assetLabel.toLowerCase()
   
@@ -64,7 +51,7 @@ function List() {
   const [selectedOption, setSelectedOption] = React.useState('');
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
-  function setModal(event, item) {
+  function setModal(event, item=null) {
     setSelectedItem(item)
     setSelectedOption(event.target.getAttribute('id'));
     setIsOpen(true);
@@ -126,14 +113,16 @@ function List() {
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
-        style={customStyles}
-        contentLabel="Example Modal"
+        style={modalStyle}
+        contentLabel="CRUD Modal"
       >
         <div>
           {selectedOption == 'details' && <DetailsModal item={selectedItem}/>}
           {selectedOption == 'delete' &&
             <DeleteModal item={selectedItem} closeModal={closeModal} removeFromAssetList={removeFromAssetList}/>}
           {selectedOption == 'edit' &&
+            <EditModal item={selectedItem} closeModal={closeModal} updateAssetList={updateAssetList}/>}
+          {selectedOption == 'create' &&
             <EditModal item={selectedItem} closeModal={closeModal} updateAssetList={updateAssetList}/>}
         </div>
 

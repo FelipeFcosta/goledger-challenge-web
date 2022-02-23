@@ -1,29 +1,29 @@
 import { useState } from "react";
-import { updateAsset } from "../../services/api";
+import { createAsset } from "../../services/api";
 import { EditContainer } from "./styles";
 
 
 // returns a jsx containing a label and an attribute
-function showInput(inputType, label, attr, setAttr, disable=false) {
+function showInput(inputType, label, attr, setAttr) {
   let assetType = label.toLowerCase()
 
   return (<div className='input-div'>
       <label htmlFor={assetType}>{label}</label>
       <input type={inputType} id={assetType} value={attr[assetType]} autoComplete="off"
-         disabled={disable} onChange={e => setAttr({...attr, [assetType]: e.target.value})}/>
+        onChange={e => setAttr({...attr, [assetType]: e.target.value})}/>
   </div>
   )
 }
 
 
-function EditModal({item, closeModal, updateAssetList}) {
-  const [asset, setAsset] = useState(item);
+function CreateModal({assetType, closeModal, addToAssetList}) {
+  const [asset, setAsset] = useState({'@assetType': assetType});
 
-  function handleUpdate() {
+  function handleCreate() {
     closeModal()
     
-    updateAsset(asset).then((r) => {
-      updateAssetList(item['@key'], asset)
+    createAsset(asset).then((r) => {
+      // addToAssetList(item['@key'], asset)
     })
     .catch((err)=> {
       console.log("erro: " + err)
@@ -32,9 +32,9 @@ function EditModal({item, closeModal, updateAssetList}) {
 
   return (
     <EditContainer>
-      {showInput('text', 'Name', asset, setAsset, true)}
+      {showInput('text', 'Name', asset, setAsset)}
       {asset['@assetType'] == 'artist' && <>
-        {showInput('text', 'Location', asset, setAsset, true)}
+        {showInput('text', 'Location', asset, setAsset)}
         <div className='input-div'>
           <label htmlFor='editable'>Description</label>
           <textarea id = 'editable' value={asset['description']}
@@ -65,10 +65,10 @@ function EditModal({item, closeModal, updateAssetList}) {
     {/* {showAssetAtr('Streaming Options', item.strOptions['@key'])} */}
       <div id='options'>
         <button id='cancel-btn' type='button' onClick={closeModal}>Cancel</button>
-        <button id='save-btn' type='button' onClick={handleUpdate}>Save</button>
+        <button id='save-btn' type='button' onClick={handleCreate}>Add</button>
       </div>
     </EditContainer>
   )
 }
 
-export default EditModal;
+export default CreateModal;

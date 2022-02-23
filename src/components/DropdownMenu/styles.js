@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   position: relative;
-  transform: translateX(-96px);
+  transform: translateX(-86px);
 `
 
 export const DropMenu = styled.div`

@@ -45,7 +45,7 @@ function AssetItem({item, index, setModal}) {
           <td>{item.year}</td>
           {/* TODO: link goes opens a modal for the artist*/}
           <td className='last'>
-            <div id='details' onClick={(e) => setModal(e, albumArtist)} style={{cursor:'pointer'}}>{albumArtist.name}</div>
+            <span id='details' onClick={(e) => setModal(e, albumArtist)}>{albumArtist.name}</span>
           </td>
       </Fragment>
       }
