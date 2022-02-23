@@ -44,7 +44,9 @@ function AssetItem({item, index, setModal}) {
       {assetType === 'album' && <Fragment>
           <td>{item.year}</td>
           {/* TODO: link goes opens a modal for the artist*/}
-          <td className='last'><a href='/'>{albumArtist.name}</a></td>
+          <td className='last'>
+            <div id='details' onClick={(e) => setModal(e, albumArtist)} style={{cursor:'pointer'}}>{albumArtist.name}</div>
+          </td>
       </Fragment>
       }
       <td id='dropdown'>

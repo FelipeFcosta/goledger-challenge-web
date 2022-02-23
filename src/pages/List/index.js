@@ -75,7 +75,14 @@ function List() {
     setAssetList(assetList => assetList.filter(asset => asset['@key'] !== key))
   }
 
-  function updateAssetList(key) {
+  function updateAssetList(key, newItem) {
+    for (let i = 0; i < assetList.length; i++) {
+      if (assetList[i]['@key'] === key) {
+        setAssetList(list => {list[i] = newItem; return list})
+        console.log("achou", newItem.nTracks)
+        break;
+      }
+    }
   }
 
 

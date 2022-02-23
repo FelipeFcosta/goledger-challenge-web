@@ -23,17 +23,13 @@ function EditModal({item, closeModal, updateAssetList}) {
     closeModal()
     
     updateAsset(asset).then((r) => {
-      updateAssetList(asset['@key'])
+      updateAssetList(item['@key'], asset)
     })
     .catch((err)=> {
       console.log("erro: " + err)
     })
   }
 
-
-  function handleSubmit(e) {
-    e.preventDefault();
-  }
 
   return (
     <EditContainer>
@@ -47,7 +43,7 @@ function EditModal({item, closeModal, updateAssetList}) {
         </div>
       </>}
       {asset['@assetType'] == 'album' && <>
-        {showInput('number', 'Year', asset, setAsset)}
+        {showInput('number', 'Year', asset, setAsset, true)}
         <div id='nTracks' className='input-div'>
           <label htmlFor="nTracks">{'Number of Tracks'}</label>
           <input type='number' id="nTracks" value={asset['nTracks']} autoComplete="off"
