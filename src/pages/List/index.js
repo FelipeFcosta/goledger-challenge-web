@@ -9,7 +9,7 @@ import { searchByAssetType } from "../../services/api";
 import artist_banner from '../../resources/images/artist_banner.jpg'
 import album_banner from '../../resources/images/album_banner.jpg'
 import streaming_banner from '../../resources/images/streaming_banner.jpg'
-import { DetailsModal, DeleteModal } from '../../components/ModalCRUD';
+import { DetailsModal, DeleteModal, EditModal } from '../../components/ModalCRUD';
 
 const customStyles = {
   content: {
@@ -21,8 +21,7 @@ const customStyles = {
   },
   overlay: {
     zIndex: 4,
-    background: "#0009",
-    backdropFilter: 'blur(2px)'
+    backgroundColor: "#000b"
   }
 };
 
@@ -124,6 +123,7 @@ function List() {
           {selectedOption == 'details' && <DetailsModal item={selectedItem}/>}
           {selectedOption == 'delete' &&
             <DeleteModal item={selectedItem} closeModal={closeModal} removeFromAssetList={removeFromAssetList}/>}
+          {selectedOption == 'edit' && <EditModal item={selectedItem}/>}
         </div>
 
       </Modal>

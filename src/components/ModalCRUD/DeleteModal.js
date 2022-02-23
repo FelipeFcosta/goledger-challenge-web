@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { deleteAsset } from "../../services/api";
 import { DeleteContainer } from "./styles";
 

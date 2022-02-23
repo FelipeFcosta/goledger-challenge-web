@@ -95,3 +95,91 @@ export const DeleteContainer = styled.div`
   }
 `
 
+export const EditContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 72px;
+  margin-inline: 16px;
+
+  font-family: 'Montserrat';
+
+  // remove input(type='number') arrows
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+  ////////////////////////////////////
+
+  label {
+    font-size: 0.9em;
+    font-weight: 500;
+  }
+
+  input {
+    border: none;
+    border:solid 1px #ccc;
+    border-radius: 8px;
+    padding: 0.5em;
+    font-size: 1em;
+    font-family: 'Montserrat';
+
+    :focus {
+      outline: none;
+    }
+  }
+
+  textarea {
+    font-family: 'Montserrat';
+    font-size: 0.95em;
+    resize: none;
+    border: none;
+    border:solid 1px #ccc;
+    outline: none;
+    color: black;
+    font-weight: 400;
+    height: 100px;
+  }
+
+  .input-div {
+    display:flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 16px;
+  }
+
+  #options {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+
+    button {
+      cursor: pointer;
+      border: none;
+      font-size: 1em;
+    }
+
+    #cancel-btn {
+      background: transparent;
+    }
+
+    #save-btn {
+      background: #0084ff;
+      color: white;
+      font-weight: 500;
+      padding: 12px;
+      border-radius: 12px;
+
+      :hover {
+        background: #0073ee;
+      }
+    }
+  }
+`
