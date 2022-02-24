@@ -51,15 +51,13 @@ export function createAsset(item, artistKey=null){
     "asset": [{
       "@assetType": item['@assetType'],
       "name": item['name'],
-      "location": item['location'],
-      "description": item['description'],
-      "year": item['year'],
-      "nTracks": item['nTracks'],
-      "genre": item['genre'],
-      "explicit": item['explicit'],
-      "artist": {
-        "@key": artistKey
-      }
+      ...(item['location']) && {"location": item['location']},
+      ...(item['description']) && {"description": item['description']},
+      ...(item['year']) && {"year": item['year']},
+      ...(item['nTracks']) && {"nTracks": item['nTracks']},
+      ...(item['genre']) && {"genre": item['genre']},
+      ...(item['explicit']) && {"explicit": item['explicit']},
+      ...(artistKey) && {"artist": {"@key": artistKey}},
     }]
   })
 }

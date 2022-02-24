@@ -160,6 +160,13 @@ export const EditContainer = styled.div`
     flex-direction: row;
     gap: 8px;
 
+    #invalid-fields-message {
+      visibility: hidden;
+      align-self: center;
+      font-size: 0.9em;
+      color: #f00c;
+    }
+
     button {
       cursor: pointer;
       border: none;
