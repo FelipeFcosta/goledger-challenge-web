@@ -1,4 +1,4 @@
-##Installing and running the app:
+## Installing and running the app:
 
 #### `git clone https://github.com/FelipeFcosta/goledger-challenge-web.git`
 
