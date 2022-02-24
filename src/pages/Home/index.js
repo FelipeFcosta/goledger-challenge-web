@@ -1,6 +1,7 @@
 import React from 'react';
 import Asset from '../../components/Asset';
 
+import logo from '../../resources/images/goledger-logo.png'
 import artist_img from '../../resources/images/artist.jpg'
 import album_img from '../../resources/images/album.jpg'
 import streaming_img from '../../resources/images/streaming.jpg'
@@ -15,8 +16,11 @@ function Home() {
 
   return (
       <div>
-      <h1>Music Registration</h1>
         <Container>
+          <div id='bar'>
+            <a href='/'><img id='logo' src={logo}></img></a>
+            <a href='/'><span>(Music)</span></a>
+          </div>
           <Asset asset={artist}/>
           <Asset asset={album}/>
           <Asset asset={streaming}/>
