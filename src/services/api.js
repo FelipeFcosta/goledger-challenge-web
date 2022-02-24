@@ -13,11 +13,11 @@ export function getArtistByKey(key){
   })
 }
 
-export async function deleteAsset(item){
+export async function deleteAsset(asset){
   return api.delete('/invoke/deleteAsset', {data: {
     "key": {
-      "@assetType": `${item['@assetType']}`,
-      "@key": `${item['@key']}`
+      "@assetType": `${asset['@assetType']}`,
+      "@key": `${asset['@key']}`
     }
   }})
 }
@@ -45,33 +45,59 @@ export function searchAlbumsByArtistKey(artistKey){
   })
 }
 
-export function updateAsset(item){
+export function updateAsset(asset){
   return api.put(`invoke/updateAsset`, {
     "update": {
-      "@assetType": item['@assetType'],
-      "@key": item['@key'],
-      "description": item['description'],
-      "year": item['year'],
-      "nTracks": item['nTracks'],
-      "genre": item['genre'],
-      "explicit": item['explicit']
+      "@assetType": asset['@assetType'],
+      "@key": asset['@key'],
+      "description": asset['description'],
+      "year": asset['year'],
+      "nTracks": asset['nTracks'],
+      "genre": asset['genre'],
+      "explicit": asset['explicit']
     }
   })
 }
 
-export function createAsset(item, artistKey=null){
+export function createAsset(asset, artistKey=null){
   return api.post(`invoke/createAsset`, {
     "asset": [{
-      "@assetType": item['@assetType'],
-      "name": item['name'],
-      ...(item['location']) && {"location": item['location']},
-      ...(item['description']) && {"description": item['description']},
-      ...(item['year']) && {"year": item['year']},
-      ...(item['nTracks']) && {"nTracks": item['nTracks']},
-      ...(item['genre']) && {"genre": item['genre']},
-      ...(item['explicit']) && {"explicit": item['explicit']},
+      "@assetType": asset['@assetType'],
+      "name": asset['name'],
+      ...(asset['location']) && {"location": asset['location']},
+      ...(asset['description']) && {"description": asset['description']},
+      ...(asset['year']) && {"year": asset['year']},
+      ...(asset['nTracks']) && {"nTracks": asset['nTracks']},
+      ...(asset['genre']) && {"genre": asset['genre']},
+      ...(asset['explicit']) && {"explicit": asset['explicit']},
       ...(artistKey) && {"artist": {"@key": artistKey}},
     }]
+  })
+}
+
+export function searchAssetByQuery(assetType, query){
+  let words = query.split(' ')
+  let regexStr = ""
+  
+  // create regex search string
+  if (query.length > 0) {
+    for (let i = 0; i < words.length; i++) {
+      regexStr += `((?i).*${words[i]}.*)|`
+    }
+    regexStr = regexStr.substring(0, regexStr.length - 1)
+  } else {
+    regexStr = '.*'
+  }
+
+  return api.post(`/query/search`, {
+    "query": {
+      "selector": {
+        "@assetType": assetType,
+        "name": {
+          "$regex": regexStr
+        }
+      }
+    }
   })
 }
 

@@ -46,6 +46,7 @@ export const ImageContainer = styled.div`
   flex-direction: column;
   justify-content: flex-end;
   height: 200px;
+  box-shadow: 0 0 10px #000;
 
   span {
     color: white;
@@ -84,4 +85,15 @@ export const ModalStyle = styled.div`
 export const OverlayStyle = styled.div`
   z-index: 4;
   background-color: #000b;
+`
+
+export const NoResults = styled.span`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: 64px;
+  font-size: 1.4em;
+  font-family: 'Montserrat';
+  font-weight: 600;
+  text-align: center;
 `

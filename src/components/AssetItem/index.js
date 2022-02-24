@@ -45,7 +45,6 @@ function AssetItem({item, index, setModal}) {
       {assetType === 'artist' && <td id='last'>{item.location}</td>}
       {assetType === 'album' && <Fragment>
           <td>{item.year}</td>
-          {/* TODO: link goes opens a modal for the artist*/}
           <td className='last'>
             <span id='details' onClick={(e) => setModal(e, albumArtist)}>{albumArtist.name}</span>
           </td>

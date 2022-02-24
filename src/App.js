@@ -24,13 +24,14 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route exact path='/list/:assetLabel' element={
-          <div>
-            <Navbar modalStyle={modalStyle}/>
-            <List modalStyle={modalStyle}/>
-          </div>
-        }>
-        </Route>
+        <Route path='/list/:assetLabel/:searchTerm' element={<>
+          <Navbar modalStyle={modalStyle}/>
+          <List modalStyle={modalStyle}/>
+        </>}></Route>
+        <Route path='/list/:assetLabel/' element={<>
+          <Navbar modalStyle={modalStyle}/>
+          <List modalStyle={modalStyle}/>
+        </>}></Route>
         <Route exact path='/' element={<Home/>}/>
       </Routes>
     </BrowserRouter>

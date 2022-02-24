@@ -2,13 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Nav, Logo, AddButton, SearchBar } from './styles';
 
 import logo from '../../resources/images/goledger-logo.png'
-import { Link, NavLink, useParams } from 'react-router-dom';
+import { Link, NavLink, useNavigate, useParams } from 'react-router-dom';
 import Modal from 'react-modal/lib/components/Modal';
 import { CreateModal } from '../ModalCRUD';
 import { searchByAssetType } from '../../services/api';
 
 import searchIcon from '../../resources/images/search-icon.svg'
-
 
 Modal.setAppElement(document.getElementById('root'));
 
@@ -21,10 +20,10 @@ function Navbar({modalStyle}) {
   let assetType = params.assetLabel.toLowerCase()
   let label = {'artist': 'Artist', 'album': 'Album', 'streaming': 'Streaming Service'}
 
-  const [query, setQuery] = useState({});
+  let navigate = useNavigate()
   function handleSearch(e) {
     e.preventDefault()
-    setQuery(e.target[0].value)
+    navigate(`/list/${assetType}/${e.target[0].value.trim()}`)
   }
 
   const [artistList, setArtistList] = useState({});
@@ -84,3 +83,17 @@ function Navbar({modalStyle}) {
 }
 
 export default Navbar;
+
+/*
+search regex
+{
+  "query": {
+    "selector": {
+      "@assetType": "artist",
+      "name": {
+        "$regex": "((?i).*the.*)|((?i).*strokes.*)|((?i).*paul.*)"
+      }
+    }
+  }
+}
+*/
