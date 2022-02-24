@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import LoadingContext from "../../contexts/loading_context";
 import { deleteAsset, searchAlbumsByArtistKey } from "../../services/api";
 import { DeleteContainer } from "./styles";
 
@@ -20,19 +21,24 @@ function DeleteModal({item, closeModal, removeFromAssetList}) {
     }
   }, [])
 
+  const {isLoading, setIsLoading} = useContext(LoadingContext)
 
-  function handleDeletion() {
+  async function handleDeletion() {
     closeModal()
+    setIsLoading(true)
     
-    deleteAsset(item).then((r) => {
+    await deleteAsset(item).then((r) => {
       removeFromAssetList(item['@key'])
     })
     .catch((err)=> {
       console.log("erro: " + err)
     })
+    setIsLoading(false)
   }
 
   async function handleArtistAlbumsDeletion() {
+    closeModal()
+    setIsLoading(true)
     for (let i = 0; i < artistAlbums.length; i++) {
       await deleteAsset(artistAlbums[i]).then()
       .catch((err)=> {
@@ -40,14 +46,13 @@ function DeleteModal({item, closeModal, removeFromAssetList}) {
       })
     }
 
-    deleteAsset(item).then((r) => {
+    await deleteAsset(item).then((r) => {
       removeFromAssetList(item['@key'])
     })
     .catch((err)=> {
       console.log("erro: " + err)
     })
-
-    closeModal()
+    setIsLoading(false)
   }
 
   return (

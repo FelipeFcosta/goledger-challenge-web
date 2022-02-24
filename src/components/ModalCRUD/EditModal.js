@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import LoadingContext from "../../contexts/loading_context";
 import { updateAsset } from "../../services/api";
 import { EditContainer } from "./styles";
 
@@ -19,15 +20,19 @@ function showInput(inputType, label, attr, setAttr, disable=false) {
 function EditModal({item, closeModal, updateAssetList}) {
   const [asset, setAsset] = useState(item);
 
-  function handleUpdate() {
+  const {isLoading, setIsLoading} = useContext(LoadingContext)
+
+  async function handleUpdate() {
     closeModal()
+    setIsLoading(true)
     
-    updateAsset(asset).then((r) => {
+    await updateAsset(asset).then((r) => {
       updateAssetList(item['@key'], asset)
     })
     .catch((err)=> {
       console.log("erro: " + err)
     })
+    setIsLoading(false)
   }
 
   return (

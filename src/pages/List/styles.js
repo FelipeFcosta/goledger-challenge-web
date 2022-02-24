@@ -116,7 +116,7 @@ export const Loading = styled.div`
       width: 1rem;
       height: 1rem;
       margin: 2rem 0.3rem;
-      background: #0076ee;
+      background: #0076ee55;
       border-radius: 50%;
       animation: 0.9s bounce infinite alternate;
 
