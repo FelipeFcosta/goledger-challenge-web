@@ -25,7 +25,7 @@ function Navbar({modalStyle}) {
   let navigate = useNavigate()
   function handleSearch(e) {
     e.preventDefault()
-    navigate(`/list/${assetType}/search/${e.target[0].value.trim()}`)
+    navigate(`/list/${assetType}/${e.target[0].value.trim()}`)
   }
 
   // artist list when creating an album

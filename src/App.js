@@ -39,7 +39,7 @@ function App() {
       <LoadingContext.Provider value={{isLoading, setIsLoading}}>
         <BrowserRouter>
           <Routes>
-            <Route path='/list/:assetLabel/search/:searchTerm' element={<>
+            <Route path='/list/:assetLabel/:searchTerm' element={<>
               <Navbar modalStyle={modalStyle}/>
               <List modalStyle={modalStyle}/>
             </>}></Route>
