@@ -37,6 +37,7 @@ function List({modalStyle}) {
 
   // list all according to search
   useEffect(() => {
+    setIsLoading(true)
     searchAssetByQuery(assetType, searchTerm).then((resp) => {
       setAssetList(resp.data['result'])
       setIsLoading(false)
