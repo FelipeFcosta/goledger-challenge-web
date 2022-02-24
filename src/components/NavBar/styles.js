@@ -29,62 +29,93 @@ export const Nav = styled.nav`
       color: #005588;
     }
   }
+`
 
-  .add-div {
-    display:flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 0px;
+export const AddButton = styled.div`
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0px;
+  text-align: center;
+  border-radius: 16px;
+
+  margin-top: 32px;
+  cursor:pointer;
+  color: black;
+
+  font-family: 'Montserrat';
+  font-weight: 600;
+  font-size: 1.2em;
+  margin-inline: 16px;
+  border:none;
+  background: #0073cc;
+  color: white;
+  padding: 0;
+
+  box-shadow: 0 0 5px #666;
+
+  div {
+    display:inline-block;
     text-align: center;
-    border-radius: 16px;
+  }
 
-    margin-top: 32px;
-    cursor:pointer;
-    color: black;
+  #plus {
+    align-self: center;
+    border-top-left-radius: 16px;
+    border-bottom-left-radius: 16px;
+    font-size: 2.9em;
+    font-weight: 400;
+    color: #0084ff;
+    background: #334;
+    max-width: 50px;
+    min-width: 50px;
+  }
 
-    font-family: 'Montserrat';
-    font-weight: 600;
-    font-size: 1.2em;
-    margin-inline: 16px;
-    border:none;
-    background: #0073cc;
-    color: white;
-    padding: 0;
+  #add {
+    padding-inline: 8px;
+    align-self: center;
+  }
 
-    box-shadow: 0 0 5px #666;
-
-    div {
-      display:inline-block;
-      text-align: center;
-    }
-
+  :hover {
+    background: #0084cc;
     #plus {
-      align-self: center;
-      border-top-left-radius: 16px;
-      border-bottom-left-radius: 16px;
-      font-size: 2.9em;
-      font-weight: 400;
-      color: #0084ff;
-      background: #334;
-      max-width: 50px;
-      min-width: 50px;
+      color: #11aacc;
     }
+  }
+`
 
-    #add {
-      padding-inline: 8px;
-      align-self: center;
-    }
+export const SearchBar = styled.div`
 
-    :hover {
-      background: #0084cc;
-      #plus {
-        color: #11aacc;
-      }
+  text-align: center;
+  
+  input {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    border: none;
+    border:solid 1px #aaa;
+    border-radius: 16px;
+    padding: 0.5em;
+    font-size: 1em;
+    font-family: 'Montserrat';
+    padding-left: 32px;
+    width: 75%;
+
+    :focus {
+      outline: none;
     }
   }
 
-
+  form {
+    position: relative;
+    align-items:center;
+    img {
+      width: 20px;
+      position: absolute;
+      top: calc(50% - 9px);
+      left: 7%;
+    }
+  }
 `
 
 export const Logo = styled.img`

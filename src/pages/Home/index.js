@@ -19,7 +19,7 @@ function Home() {
         <Container>
           <div id='bar'>
             <a href='/'><img id='logo' src={logo}></img></a>
-            <a href='/'><span>(Music)</span></a>
+            <a href='/'><span>Music</span></a>
           </div>
           <Asset asset={artist}/>
           <Asset asset={album}/>

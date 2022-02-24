@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Nav, Logo } from './styles';
+import { Nav, Logo, AddButton, SearchBar } from './styles';
 
 import logo from '../../resources/images/goledger-logo.png'
 import { Link, NavLink, useParams } from 'react-router-dom';
 import Modal from 'react-modal/lib/components/Modal';
 import { CreateModal } from '../ModalCRUD';
 import { searchByAssetType } from '../../services/api';
+
+import searchIcon from '../../resources/images/search-icon.svg'
 
 
 Modal.setAppElement(document.getElementById('root'));
@@ -18,6 +20,12 @@ function Navbar({modalStyle}) {
   let params = useParams();
   let assetType = params.assetLabel.toLowerCase()
   let label = {'artist': 'Artist', 'album': 'Album', 'streaming': 'Streaming Service'}
+
+  const [query, setQuery] = useState({});
+  function handleSearch(e) {
+    e.preventDefault()
+    setQuery(e.target[0].value)
+  }
 
   const [artistList, setArtistList] = useState({});
   useEffect(() => {
@@ -49,10 +57,20 @@ function Navbar({modalStyle}) {
       <NavLink to='/list/streaming' className='nav-link' style={({ isActive }) => isActive ? activeStyle : undefined}>
         Streaming Services
       </NavLink>
-        <div id={assetType} className={'add-div'} onClick={setModal}>
-          <div id='plus'>+</div>
-          <div id='add'>New {label[assetType]}</div>
-        </div>
+
+      
+      <SearchBar>
+        <form onSubmit={handleSearch}>
+          <img src={searchIcon}></img>
+          <input type='text' placeholder={`Search ${label[assetType].split(' ')[0]}`}></input>
+        </form>
+      </SearchBar>
+
+      <AddButton id={assetType} onClick={setModal}>
+        <div id='plus'>+</div>
+        <div id='add'>New {label[assetType]}</div>
+      </AddButton>
+
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
