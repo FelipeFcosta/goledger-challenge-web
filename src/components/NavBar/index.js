@@ -9,6 +9,7 @@ import { searchByAssetType } from '../../services/api';
 
 import searchIcon from '../../resources/images/search-icon.svg'
 import AssetListContext from '../../contexts/asset_list_context';
+import LoadingContext from '../../contexts/loading_context';
 
 Modal.setAppElement(document.getElementById('root'));
 
@@ -42,6 +43,7 @@ function Navbar({modalStyle}) {
   }, [assetType])
 
   const {assetList, setAssetList} = useContext(AssetListContext)
+  const {isLoading, setIsLoading} = useContext(LoadingContext)
 
   // modal configuration
   const [modalIsOpen, setIsOpen] = React.useState(false);
@@ -50,6 +52,7 @@ function Navbar({modalStyle}) {
 
   return (
     <AssetListContext.Provider value={{assetList, setAssetList}}>
+    <LoadingContext.Provider value={{isLoading, setIsLoading}}>
       <Nav>
         <Link to='/' className='nav-logo'><Logo src={logo}/></Link>
         <NavLink to='/list/artist' className='nav-link' style={({ isActive }) => isActive ? activeStyle : undefined}>
@@ -83,6 +86,7 @@ function Navbar({modalStyle}) {
           <CreateModal id='modal' artistList={artistList} assetType={assetType} closeModal={closeModal}></CreateModal>
         </Modal>
       </Nav>
+    </LoadingContext.Provider>
     </AssetListContext.Provider>
   )
 }

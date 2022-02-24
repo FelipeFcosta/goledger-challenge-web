@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Modal from 'react-modal';
 
-import { Container, ImageContainer, NoResults } from './styles';
+import { Container, ImageContainer, Loading, NoResults } from './styles';
 import AssetItem from '../../components/AssetItem';
 import { searchAssetByQuery } from "../../services/api";
 
@@ -11,6 +11,7 @@ import album_banner from '../../resources/images/album_banner.jpg'
 import streaming_banner from '../../resources/images/streaming_banner.jpg'
 import { DetailsModal, DeleteModal, EditModal } from '../../components/ModalCRUD';
 import AssetListContext from '../../contexts/asset_list_context';
+import LoadingContext from '../../contexts/loading_context';
 
 
 Modal.setAppElement(document.getElementById('root'));
@@ -32,6 +33,7 @@ function List({modalStyle}) {
   else                             banner = streaming_banner
 
   const {assetList, setAssetList} = useContext(AssetListContext)
+  const {isLoading, setIsLoading} = useContext(LoadingContext)
 
   // list all according to search
   useEffect(() => {
@@ -80,7 +82,7 @@ function List({modalStyle}) {
       <ImageContainer src={banner}>
         <span>{title}</span>
       </ImageContainer>
-      {assetList.length > 0 && <>
+      {!isLoading && assetList.length > 0 && <>
         <table>
           <colgroup>
             {/* attach first column to the second */}
@@ -126,8 +128,17 @@ function List({modalStyle}) {
 
         </Modal>
       </>}
-      {assetList.length == 0 && 
+      {!isLoading && assetList.length == 0 && 
         <NoResults>No results found for "{searchTerm}"</NoResults>
+      }
+      {isLoading && 
+        <Loading>
+          <div class="loading">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </Loading>
       }
     </Container>
   }

@@ -5,6 +5,7 @@ import './index.css';
 import List from './pages/List';
 import Navbar from './components/NavBar';
 import AssetListContext from './contexts/asset_list_context';
+import LoadingContext from './contexts/loading_context';
 
 
 const modalStyle = {
@@ -25,22 +26,25 @@ const modalStyle = {
 
 function App() {
   const [assetList, setAssetList] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
 
   return (
     <AssetListContext.Provider value={{assetList, setAssetList}}>
-      <BrowserRouter>
-        <Routes>
-          <Route path='/list/:assetLabel/search/:searchTerm' element={<>
-            <Navbar modalStyle={modalStyle}/>
-            <List modalStyle={modalStyle}/>
-          </>}></Route>
-          <Route path='/list/:assetLabel/' element={<>
-            <Navbar modalStyle={modalStyle}/>
-            <List modalStyle={modalStyle}/>
-          </>}></Route>
-          <Route exact path='/' element={<Home/>}/>
-        </Routes>
-      </BrowserRouter>
+      <LoadingContext.Provider value={{isLoading, setIsLoading}}>
+        <BrowserRouter>
+          <Routes>
+            <Route path='/list/:assetLabel/search/:searchTerm' element={<>
+              <Navbar modalStyle={modalStyle}/>
+              <List modalStyle={modalStyle}/>
+            </>}></Route>
+            <Route path='/list/:assetLabel/' element={<>
+              <Navbar modalStyle={modalStyle}/>
+              <List modalStyle={modalStyle}/>
+            </>}></Route>
+            <Route exact path='/' element={<Home/>}/>
+          </Routes>
+        </BrowserRouter>
+      </LoadingContext.Provider>
     </AssetListContext.Provider>
   )
 }

@@ -3,6 +3,7 @@ import { createAsset, searchByAssetType } from "../../services/api";
 import { EditContainer } from "./styles";
 import Select from 'react-select'
 import AssetListContext from "../../contexts/asset_list_context";
+import LoadingContext from "../../contexts/loading_context";
 
 
 function setInvalidMessage() {
@@ -51,6 +52,7 @@ function CreateModal({artistList, assetType, closeModal}) {
   }
 
   const {assetList, setAssetList} = useContext(AssetListContext)
+  const {isLoading, setIsLoading} = useContext(LoadingContext)
 
   async function handleCreate(e) {
     e.preventDefault()
@@ -73,6 +75,9 @@ function CreateModal({artistList, assetType, closeModal}) {
       return
     }
 
+    closeModal()
+    setIsLoading(true)
+
     await createAsset(asset, artist.value).then()
     .catch((err)=> {
       console.log("erro: " + err)
@@ -81,11 +86,11 @@ function CreateModal({artistList, assetType, closeModal}) {
     // tell to update list
     searchByAssetType(assetType).then((resp) => {
       setAssetList(resp.data.result)
+      setIsLoading(false)
     })
     .catch((err)=>{
       console.log("erro: " + err)
     })
-    closeModal()
   }
 
   return (
