@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import './index.css';
 import List from './pages/List';
 import Navbar from './components/NavBar';
+import AssetListContext from './contexts/asset_list_context';
 
 
 const modalStyle = {
@@ -20,21 +21,27 @@ const modalStyle = {
   }
 };
 
+
+
 function App() {
+  const [assetList, setAssetList] = useState([])
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/list/:assetLabel/:searchTerm' element={<>
-          <Navbar modalStyle={modalStyle}/>
-          <List modalStyle={modalStyle}/>
-        </>}></Route>
-        <Route path='/list/:assetLabel/' element={<>
-          <Navbar modalStyle={modalStyle}/>
-          <List modalStyle={modalStyle}/>
-        </>}></Route>
-        <Route exact path='/' element={<Home/>}/>
-      </Routes>
-    </BrowserRouter>
+    <AssetListContext.Provider value={{assetList, setAssetList}}>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/list/:assetLabel/search/:searchTerm' element={<>
+            <Navbar modalStyle={modalStyle}/>
+            <List modalStyle={modalStyle}/>
+          </>}></Route>
+          <Route path='/list/:assetLabel/' element={<>
+            <Navbar modalStyle={modalStyle}/>
+            <List modalStyle={modalStyle}/>
+          </>}></Route>
+          <Route exact path='/' element={<Home/>}/>
+        </Routes>
+      </BrowserRouter>
+    </AssetListContext.Provider>
   )
 }
 

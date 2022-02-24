@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Modal from 'react-modal';
 
@@ -10,6 +10,7 @@ import artist_banner from '../../resources/images/artist_banner.jpg'
 import album_banner from '../../resources/images/album_banner.jpg'
 import streaming_banner from '../../resources/images/streaming_banner.jpg'
 import { DetailsModal, DeleteModal, EditModal } from '../../components/ModalCRUD';
+import AssetListContext from '../../contexts/asset_list_context';
 
 
 Modal.setAppElement(document.getElementById('root'));
@@ -30,7 +31,7 @@ function List({modalStyle}) {
   else if (assetType === 'album') banner = album_banner
   else                             banner = streaming_banner
 
-  const [assetList, setAssetList] = useState([])
+  const {assetList, setAssetList} = useContext(AssetListContext)
 
   // list all according to search
   useEffect(() => {
@@ -40,7 +41,7 @@ function List({modalStyle}) {
     .catch((err)=>{
       console.log("erro: " + err)
     })
-  }, [assetType, searchTerm]) // re-render if assetLabel changes
+  }, [assetType, searchTerm])
 
   
   // modal configuration
@@ -63,7 +64,6 @@ function List({modalStyle}) {
     for (let i = 0; i < assetList.length; i++) {
       if (assetList[i]['@key'] === key) {
         setAssetList(list => {list[i] = newItem; return list})
-        console.log("achou", newItem.nTracks)
         break;
       }
     }

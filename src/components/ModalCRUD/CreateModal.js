@@ -1,7 +1,8 @@
-import { useState } from "react";
-import { createAsset } from "../../services/api";
+import { useContext, useEffect, useState } from "react";
+import { createAsset, searchByAssetType } from "../../services/api";
 import { EditContainer } from "./styles";
 import Select from 'react-select'
+import AssetListContext from "../../contexts/asset_list_context";
 
 
 function setInvalidMessage() {
@@ -40,7 +41,7 @@ function showInput(inputType, label, attr, setAttr) {
 }
 
 
-function CreateModal({artistList, assetType, closeModal, addToAssetList}) {
+function CreateModal({artistList, assetType, closeModal}) {
   const [asset, setAsset] = useState({'@assetType': assetType});
   const [artist, setArtist] = useState({});
 
@@ -49,7 +50,9 @@ function CreateModal({artistList, assetType, closeModal, addToAssetList}) {
     options = artistList.map(artist => ({value: artist['@key'], label: artist.name}))
   }
 
-  function handleCreate(e) {
+  const {assetList, setAssetList} = useContext(AssetListContext)
+
+  async function handleCreate(e) {
     e.preventDefault()
 
     // check fields
@@ -70,11 +73,19 @@ function CreateModal({artistList, assetType, closeModal, addToAssetList}) {
       return
     }
 
-    closeModal()
-    createAsset(asset, artist.value).then()
+    await createAsset(asset, artist.value).then()
     .catch((err)=> {
       console.log("erro: " + err)
     })
+    
+    // tell to update list
+    searchByAssetType(assetType).then((resp) => {
+      setAssetList(resp.data.result)
+    })
+    .catch((err)=>{
+      console.log("erro: " + err)
+    })
+    closeModal()
   }
 
   return (

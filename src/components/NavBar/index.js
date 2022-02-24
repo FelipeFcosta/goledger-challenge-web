@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Nav, Logo, AddButton, SearchBar } from './styles';
 
 import logo from '../../resources/images/goledger-logo.png'
@@ -8,6 +8,7 @@ import { CreateModal } from '../ModalCRUD';
 import { searchByAssetType } from '../../services/api';
 
 import searchIcon from '../../resources/images/search-icon.svg'
+import AssetListContext from '../../contexts/asset_list_context';
 
 Modal.setAppElement(document.getElementById('root'));
 
@@ -23,9 +24,10 @@ function Navbar({modalStyle}) {
   let navigate = useNavigate()
   function handleSearch(e) {
     e.preventDefault()
-    navigate(`/list/${assetType}/${e.target[0].value.trim()}`)
+    navigate(`/list/${assetType}/search/${e.target[0].value.trim()}`)
   }
 
+  // artist list when creating an album
   const [artistList, setArtistList] = useState({});
   useEffect(() => {
     if (assetType === 'album') {
@@ -39,61 +41,50 @@ function Navbar({modalStyle}) {
     }
   }, [assetType])
 
+  const {assetList, setAssetList} = useContext(AssetListContext)
+
   // modal configuration
   const [modalIsOpen, setIsOpen] = React.useState(false);
   let setModal = () => setIsOpen(true);
   let closeModal = () => setIsOpen(false)
 
   return (
-    <Nav>
-      <Link to='/' className='nav-logo'><Logo src={logo}/></Link>
-      <NavLink to='/list/artist' className='nav-link' style={({ isActive }) => isActive ? activeStyle : undefined}>
-        Artists
-      </NavLink>
-      <NavLink to='/list/album' className='nav-link' style={({ isActive }) => isActive ? activeStyle : undefined}>
-        Albums
-      </NavLink>
-      <NavLink to='/list/streaming' className='nav-link' style={({ isActive }) => isActive ? activeStyle : undefined}>
-        Streaming Services
-      </NavLink>
+    <AssetListContext.Provider value={{assetList, setAssetList}}>
+      <Nav>
+        <Link to='/' className='nav-logo'><Logo src={logo}/></Link>
+        <NavLink to='/list/artist' className='nav-link' style={({ isActive }) => isActive ? activeStyle : undefined}>
+          Artists
+        </NavLink>
+        <NavLink to='/list/album' className='nav-link' style={({ isActive }) => isActive ? activeStyle : undefined}>
+          Albums
+        </NavLink>
+        <NavLink to='/list/streaming' className='nav-link' style={({ isActive }) => isActive ? activeStyle : undefined}>
+          Streaming Services
+        </NavLink>
 
-      
-      <SearchBar>
-        <form onSubmit={handleSearch}>
-          <img src={searchIcon}></img>
-          <input type='text' placeholder={`Search ${label[assetType].split(' ')[0]}`}></input>
-        </form>
-      </SearchBar>
+        <SearchBar>
+          <form onSubmit={handleSearch}>
+            <img src={searchIcon}></img>
+            <input type='text' placeholder={`Search ${label[assetType].split(' ')[0]}`}></input>
+          </form>
+        </SearchBar>
 
-      <AddButton id={assetType} onClick={setModal}>
-        <div id='plus'>+</div>
-        <div id='add'>New {label[assetType]}</div>
-      </AddButton>
+        <AddButton id={assetType} onClick={setModal}>
+          <div id='plus'>+</div>
+          <div id='add'>New {label[assetType]}</div>
+        </AddButton>
 
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        style={modalStyle}
-        contentLabel="CRUD Modal"
-      >
-        <CreateModal id='modal' artistList={artistList} assetType={assetType} closeModal={closeModal}></CreateModal>
-      </Modal>
-    </Nav>
+        <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={closeModal}
+          style={modalStyle}
+          contentLabel="CRUD Modal"
+        >
+          <CreateModal id='modal' artistList={artistList} assetType={assetType} closeModal={closeModal}></CreateModal>
+        </Modal>
+      </Nav>
+    </AssetListContext.Provider>
   )
 }
 
 export default Navbar;
-
-/*
-search regex
-{
-  "query": {
-    "selector": {
-      "@assetType": "artist",
-      "name": {
-        "$regex": "((?i).*the.*)|((?i).*strokes.*)|((?i).*paul.*)"
-      }
-    }
-  }
-}
-*/
