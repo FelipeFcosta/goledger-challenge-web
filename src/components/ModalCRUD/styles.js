@@ -58,6 +58,15 @@ export const DeleteContainer = styled.div`
 
   font-family: 'Montserrat';
 
+  .dependent {
+    margin-bottom: 8px;
+  }
+
+  #warning {
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
   span {
     font-weight: 500;
   }

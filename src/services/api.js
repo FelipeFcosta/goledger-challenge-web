@@ -13,7 +13,7 @@ export function getArtistByKey(key){
   })
 }
 
-export function deleteAsset(item){
+export async function deleteAsset(item){
   return api.delete('/invoke/deleteAsset', {data: {
     "key": {
       "@assetType": `${item['@assetType']}`,
@@ -27,6 +27,19 @@ export function searchByAssetType(assetType){
     "query": {
       "selector": {
         "@assetType": `${assetType}`
+      }
+    }
+  })
+}
+
+export function searchAlbumsByArtistKey(artistKey){
+  return api.post(`/query/search`, {
+    "query": {
+      "selector": {
+        "@assetType": "album",
+        "artist": {
+          "@key": artistKey
+         }
       }
     }
   })

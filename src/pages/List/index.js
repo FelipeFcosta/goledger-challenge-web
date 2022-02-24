@@ -15,7 +15,6 @@ import { DetailsModal, DeleteModal, EditModal } from '../../components/ModalCRUD
 Modal.setAppElement(document.getElementById('root'));
 
 function List({modalStyle}) {
-
   let assetLabel = useParams().assetLabel.toLowerCase()
   
   let navigate = useNavigate()
