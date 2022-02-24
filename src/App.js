@@ -7,6 +7,12 @@ import Navbar from './components/NavBar';
 import AssetListContext from './contexts/asset_list_context';
 import LoadingContext from './contexts/loading_context';
 
+/* TODOs
+ * handle case where the asset to be created already exists
+ * 'x' button for the modals
+ * live search
+*/
+
 
 const modalStyle = {
   content: {
@@ -26,7 +32,7 @@ const modalStyle = {
 
 function App() {
   const [assetList, setAssetList] = useState([])
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   return (
     <AssetListContext.Provider value={{assetList, setAssetList}}>

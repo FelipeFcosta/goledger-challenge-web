@@ -39,6 +39,7 @@ function List({modalStyle}) {
   useEffect(() => {
     searchAssetByQuery(assetType, searchTerm).then((resp) => {
       setAssetList(resp.data['result'])
+      setIsLoading(false)
     })
     .catch((err)=>{
       console.log("erro: " + err)
